@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ trans('frontend.listings.title') }}
+            {{ __('Listings') }}
         </h2>
     </x-slot>
 
@@ -12,41 +12,41 @@
             @endif
 
             <a href="{{ route('listings.create') }}"
-               class="mb-4 inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:shadow-outline-gray disabled:opacity-25 transition ease-in-out duration-150">{{ trans('frontend.listings.content.add_new_listing') }}</a>
+               class="mb-4 inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:shadow-outline-gray disabled:opacity-25 transition ease-in-out duration-150">{{ __('Add new listing') }}</a>
 
             <div class="mb-4">
                 <form method="GET" action="">
-                    <input type="text" name="title" placeholder="{{ trans('frontend.listings.content.title') }}" value="{{ request('title') }}" />
+                    <input type="text" name="title" placeholder="{{ __('Title') }}" value="{{ request('title') }}" />
                     <select name="category">
-                        <option value="">-- {{ trans('frontend.listings.content.categories.statement') }} --</option>
+                        <option value="">-- {{ __('choose category') }} --</option>
                         @foreach ($categories as $category)
                             <option value="{{ $category->id }}"
-                                    @if (request('category') == $category->id) selected @endif>{{ $category->name }}</option>
+                                    @if (request('category') == $category->id) selected @endif>{{ __($category->name) }}</option>
                         @endforeach
                     </select>
                     <select name="size">
-                        <option value="">-- {{ trans('frontend.listings.content.sizes.statement') }} --</option>
+                        <option value="">-- {{ __('choose size') }} --</option>
                         @foreach ($sizes as $size)
                             <option value="{{ $size->id }}"
                                     @if (request('size') == $size->id) selected @endif>{{ $size->name }}</option>
                         @endforeach
                     </select>
                     <select name="color">
-                        <option value="">-- {{ trans('frontend.listings.content.colors.statement') }} --</option>
+                        <option value="">-- {{ __('choose color') }} --</option>
                         @foreach ($colors as $color)
                             <option value="{{ $color->id }}"
-                                    @if (request('color') == $color->id) selected @endif>{{ $color->name }}</option>
+                                    @if (request('color') == $color->id) selected @endif>{{ __($color->name) }}</option>
                         @endforeach
                     </select>
                     <select name="city">
-                        <option value="">-- {{ trans('frontend.listings.content.cities.statement') }} --</option>
+                        <option value="">-- {{ __('choose city') }} --</option>
                         @foreach ($cities as $city)
                             <option value="{{ $city->id }}"
                                     @if (request('city') == $city->id) selected @endif>{{ $city->name }}</option>
                         @endforeach
                     </select>
                     @livewire('listing-saved-checkbox')
-                    <button type="submit" class="mb-4 inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:shadow-outline-gray disabled:opacity-25 transition ease-in-out duration-150">{{ trans('frontend.listings.content.search') }}</button>
+                    <button type="submit" class="mb-4 inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:shadow-outline-gray disabled:opacity-25 transition ease-in-out duration-150">{{ __('Search') }}</button>
                 </form>
             </div>
 
@@ -57,25 +57,25 @@
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         </th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            {{ trans('frontend.listings.content.title') }}
+                            {{ __('Title') }}
                         </th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            {{ trans('frontend.listings.content.description') }}
+                            {{ __('Description') }}
                         </th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            {{ trans('frontend.listings.content.categories.title') }}
+                            {{ __('Categories') }}
                         </th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            {{ trans('frontend.listings.content.sizes.title') }}
+                            {{ __('Sizes') }}
                         </th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            {{ trans('frontend.listings.content.colors.title') }}
+                            {{ __('Colors') }}
                         </th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            {{ trans('frontend.listings.content.city') }}
+                            {{ __('City') }}
                         </th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            {{ trans('frontend.listings.content.price') }}
+                            {{ __('Price') }}
                         </th>
                         <th class="relative px-6 py-3" colspan="2"></th>
                     </tr>
@@ -88,11 +88,11 @@
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">{{ $listing->title }}
                             <br />
-                            <a href="{{ route('messages.create') }}?listing_id={{ $listing->id }}" class="underline">{{ trans('frontend.listings.content.send_a_message') }}</a></td>
+                            <a href="{{ route('messages.create') }}?listing_id={{ $listing->id }}" class="underline">{{ __('Send a message') }}</a></td>
                             <td class="px-6 py-4 whitespace-nowrap">{{ $listing->description }}</td>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 @foreach ($listing->categories as $category)
-                                    {{ $category->name }}
+                                    {{ __($category->name) }}
                                 @endforeach
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
@@ -102,7 +102,7 @@
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 @foreach ($listing->colors as $color)
-                                    {{ $color->name }}
+                                    {{ __($color->name) }}
                                 @endforeach
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
@@ -116,7 +116,7 @@
 
                                 @can('update', $listing)
                                     <a href="{{ route('listings.edit', $listing) }}"
-                                       class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:shadow-outline-gray disabled:opacity-25 transition ease-in-out duration-150">Edit</a>
+                                       class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:shadow-outline-gray disabled:opacity-25 transition ease-in-out duration-150">{{ __('Edit') }}</a>
                                 @endcan
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
@@ -124,9 +124,9 @@
                                     <form method="POST" action="{{ route('listings.destroy', $listing) }}">
                                         @csrf
                                         @method('DELETE')
-                                        <x-jet-danger-button onclick="return confirm('{{ trans('frontend.listings.content.are_you_sure') }}')" type="submit">
-                                            {{ trans('frontend.listings.content.delete') }}
-                                        </x-jet-danger-button>
+                                        <x-danger-button onclick="return confirm('{{ __('Are you sure?') }}')" type="submit">
+                                            {{ __('Delete') }}
+                                        </x-danger-button>
                                     </form>
                                 @endcan
                             </td>

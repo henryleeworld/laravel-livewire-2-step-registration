@@ -12,14 +12,14 @@
                 @csrf
 
                 <div>
-                    <x-jet-label for="message" value="{{ __('Message') }}" />
+                    <x-label for="message" value="{{ __('Message') }}" />
                     <textarea required name="message" rows="10" class="block mt-1 w-full"></textarea>
                 </div>
 
                 <div class="flex items-center mt-6">
-                    <x-jet-button>
+                    <x-button>
                         {{ __('Send message') }}
-                    </x-jet-button>
+                    </x-button>
                 </div>
             </form>
         </div>
