@@ -8,11 +8,9 @@ use Illuminate\Database\Seeder;
 class CategorySeeder extends Seeder
 {
     /**
-     * Run the database seeds.
-     *
-     * @return void
+     * Run the database seeders.
      */
-    public function run()
+    public function run(): void
     {
         Category::create(['name' => 'Toys']);
         Category::create(['name' => 'Gadgets']);

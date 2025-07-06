@@ -1,38 +1,27 @@
 <?php
 
+use App\Http\Controllers\ListingController;
+use App\Http\Controllers\MessageController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
 Route::redirect('/', '/login');
-Route::group(['middleware' => ['auth:sanctum', config('jetstream.auth_session'), 'verified']], function () {
-    Route::group(['middleware' => ['registration.completed']], function () {
-        Route::get('/dashboard', function () {
-            return view('dashboard');
-        })->name('dashboard');
-    });
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified', 'registration.completed'])->name('dashboard');
 
-    Route::get('register-step2',
-        [\App\Http\Controllers\RegisterStepTwoController::class, 'create'])
-        ->name('register-step2.create');;
-    Route::post('register-step2',
-        [\App\Http\Controllers\RegisterStepTwoController::class, 'store'])
-        ->name('register-step2.post');
-
+Route::middleware('auth')->group(function () {
     Route::get('listings/{listingId}/photos/{photoId}/delete', [
-        \App\Http\Controllers\ListingController::class,
+        ListingController::class,
         'deletePhoto'
     ])->name('listings.deletePhoto');
-    Route::resource('listings', \App\Http\Controllers\ListingController::class);
+    Route::resource('listings', ListingController::class);
 
-    Route::resource('messages', \App\Http\Controllers\MessageController::class)
+    Route::resource('messages', MessageController::class)
         ->only(['create', 'store']);
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+require __DIR__.'/auth.php';

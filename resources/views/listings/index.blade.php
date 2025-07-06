@@ -42,7 +42,7 @@
                         <option value="">-- {{ __('choose city') }} --</option>
                         @foreach ($cities as $city)
                             <option value="{{ $city->id }}"
-                                    @if (request('city') == $city->id) selected @endif>{{ $city->name }}</option>
+                                    @if (request('city') == $city->id) selected @endif>{{ __($city->name) }}</option>
                         @endforeach
                     </select>
                     @livewire('listing-saved-checkbox')
@@ -106,7 +106,7 @@
                                 @endforeach
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
-                                {{ $listing->user->city->name ?? '' }}
+                                {{ __($listing->user->city->name) ?? '' }}
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">${{ $listing->price }}</td>
                             <td class="px-6 py-4 whitespace-nowrap">

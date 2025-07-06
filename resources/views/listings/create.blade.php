@@ -13,37 +13,37 @@
                 @csrf
 
                 <div>
-                    <x-label for="title" value="{{ __('Title') }}" />
-                    <x-input id="title" class="block mt-1 w-full" type="text" name="title" :value="old('title')" />
+                    <x-input-label for="title" value="{{ __('Title') }}" />
+                    <x-text-input id="title" class="block mt-1 w-full" type="text" name="title" :value="old('title')" />
                 </div>
 
                 <div class="mt-4">
-                    <x-label for="description" value="{{ __('Description') }}" />
+                    <x-input-label for="description" value="{{ __('Description') }}" />
                     <textarea id="price" class="block mt-1 w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm" name="description">{{ old('description') }}</textarea>
                 </div>
 
                 <div class="mt-4">
-                    <x-label for="price" value="{{ __('Price') }}" />
-                    <x-input id="price" class="block mt-1 w-full" type="text" name="price" :value="old('price')" />
+                    <x-input-label for="price" value="{{ __('Price') }}" />
+                    <x-text-input id="price" class="block mt-1 w-full" type="text" name="price" :value="old('price')" />
                 </div>
 
                 <div class="mt-4">
-                    <x-label for="photo1" value="{{ __('Photo 1') }}" />
+                    <x-input-label for="photo1" value="{{ __('Photo 1') }}" />
                     <input type="file" name="photo1" />
                 </div>
 
                 <div class="mt-4">
-                    <x-label for="photo2" value="{{ __('Photo 2') }}" />
+                    <x-input-label for="photo2" value="{{ __('Photo 2') }}" />
                     <input type="file" name="photo2" />
                 </div>
 
                 <div class="mt-4">
-                    <x-label for="photo3" value="{{ __('Photo 3') }}" />
+                    <x-input-label for="photo3" value="{{ __('Photo 3') }}" />
                     <input type="file" name="photo3" />
                 </div>
 
                 <div class="mt-4">
-                    <x-label for="categories" value="{{ __('Categories') }}" />
+                    <x-input-label for="categories" value="{{ __('Categories') }}" />
                     @foreach($categories as $category)
                         <input type="checkbox" name="categories[]" value="{{ $category->id }}" />
                         {{ __($category->name) }}
@@ -52,7 +52,7 @@
                 </div>
 
                 <div class="mt-4">
-                    <x-label for="sizes" value="{{ __('Sizes') }}" />
+                    <x-input-label for="sizes" value="{{ __('Sizes') }}" />
                     @foreach($sizes as $size)
                         <input type="checkbox" name="sizes[]" value="{{ $size->id }}" />
                         {{ $size->name }}
@@ -61,7 +61,7 @@
                 </div>
 
                 <div class="mt-4">
-                    <x-label for="colors" value="{{ __('Colors') }}" />
+                    <x-input-label for="colors" value="{{ __('Colors') }}" />
                     @foreach($colors as $color)
                         <input type="checkbox" name="colors[]" value="{{ $color->id }}" />
                         {{ __($color->name) }}
@@ -70,9 +70,9 @@
                 </div>
 
                 <div class="flex items-center mt-6">
-                    <x-button>
+                    <x-primary-button>
                         {{ __('Save listing') }}
-                    </x-button>
+                    </x-primary-button>
                 </div>
             </form>
         </div>

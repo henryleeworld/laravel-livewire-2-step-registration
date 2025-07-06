@@ -17,13 +17,13 @@ class ListingFactory extends Factory
     /**
      * Define the model's default state.
      *
-     * @return array
+     * @return array<string, mixed>
      */
-    public function definition()
+    public function definition(): array
     {
         return [
-            'title' => $this->faker->text(20),
-            'description' => $this->faker->text(200),
+            'title' => fake()->text(20),
+            'description' => fake()->text(200),
             'price' => rand(10, 999)
         ];
     }

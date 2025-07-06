@@ -3,16 +3,20 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Fortify\TwoFactorAuthenticatable;
-use Laravel\Jetstream\HasProfilePhoto;
-use Laravel\Sanctum\HasApiTokens;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
-class User extends Authenticatable
+class User extends Authenticatable implements HasMedia
 {
-    use HasApiTokens, HasFactory, HasProfilePhoto, Notifiable, TwoFactorAuthenticatable;
+    use HasFactory, InteractsWithMedia, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -36,40 +40,62 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
-        'two_factor_recovery_codes',
-        'two_factor_secret',
     ];
 
     /**
-     * The attributes that should be cast.
+     * Get the attributes that should be cast.
      *
-     * @var array<string, string>
+     * @return array<string, string>
      */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-        'password' => 'hashed',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'email_verified_at' => 'datetime',
+            'password' => 'hashed',
+        ];
+    }
+
+    public function registerMediaConversions(?Media $media = null): void
+    {
+        $this->addMediaConversion('thumb')->width(50)->height(50);
+    }
 
     /**
-     * The accessors to append to the model's array form.
-     *
-     * @var array<int, string>
+     * Interact with the user's photo.
      */
-    protected $appends = [
-        'profile_photo_url',
-    ];
+    protected function photo(): Attribute
+    {
+        $file = $this->getMedia('photos')->last();
 
+        if ($file) {
+            $file->url       = $file->getUrl();
+            $file->thumbnail = $file->getUrl('thumb');
+        }
+        return Attribute::make(
+            get: fn (mixed $value) => $file,
+        );
+    }
+
+    /**
+     * Get the listings for the user.
+     */
     public function listings()
     {
         return $this->hasMany(Listing::class);
     }
 
-    public function city()
+    /**
+     * Get the city that owns the user.
+     */
+    public function city(): BelongsTo
     {
         return $this->belongsTo(City::class);
     }
 
-    public function savedListings()
+    /**
+     * The saved listings that belong to the user.
+     */
+    public function savedListings(): BelongsToMany
     {
         return $this->belongsToMany(Listing::class);
     }

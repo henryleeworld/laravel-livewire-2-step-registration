@@ -8,11 +8,9 @@ use Illuminate\Database\Seeder;
 class SizeSeeder extends Seeder
 {
     /**
-     * Run the database seeds.
-     *
-     * @return void
+     * Run the database seeders.
      */
-    public function run()
+    public function run(): void
     {
         Size::create(['name' => 'XXS']);
         Size::create(['name' => 'XS']);

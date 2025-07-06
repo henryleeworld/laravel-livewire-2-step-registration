@@ -8,11 +8,9 @@ use Illuminate\Database\Seeder;
 class ColorSeeder extends Seeder
 {
     /**
-     * Run the database seeds.
-     *
-     * @return void
+     * Run the database seeders.
      */
-    public function run()
+    public function run(): void
     {
         Color::create(['name' => 'Red']);
         Color::create(['name' => 'Yellow']);

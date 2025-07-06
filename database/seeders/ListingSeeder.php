@@ -8,12 +8,10 @@ use Illuminate\Database\Seeder;
 class ListingSeeder extends Seeder
 {
     /**
-     * Run the database seeds.
-     *
-     * @return void
+     * Run the database seeders.
      */
-    public function run()
+    public function run(): void
     {
-        Listing::factory(10)->create();
+        Listing::factory()->count(10)->create();
     }
 }

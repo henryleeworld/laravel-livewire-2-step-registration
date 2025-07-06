@@ -18,8 +18,6 @@ class ListingMessageNotification extends Notification
 
     /**
      * Create a new notification instance.
-     *
-     * @return void
      */
     public function __construct($message)
     {
@@ -32,38 +30,21 @@ class ListingMessageNotification extends Notification
     /**
      * Get the notification's delivery channels.
      *
-     * @param  mixed  $notifiable
-     * @return array
+     * @return array<int, string>
      */
-    public function via($notifiable)
+    public function via(object $notifiable): array
     {
         return ['mail'];
     }
 
     /**
      * Get the mail representation of the notification.
-     *
-     * @param  mixed  $notifiable
-     * @return \Illuminate\Notifications\Messages\MailMessage
      */
-    public function toMail($notifiable)
+    public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-                    ->line($this->name . ' ('.$this->email.') has sent you a message about ' . $this->listingTitle)
+                    ->line($this->name . __(' (:email) has sent you a message about :listing_title', ['email' => $this->email, 'listing_title' => $this->listingTitle]))
                     ->line($this->messageText)
-                    ->line('Thank you for using our application!');
-    }
-
-    /**
-     * Get the array representation of the notification.
-     *
-     * @param  mixed  $notifiable
-     * @return array
-     */
-    public function toArray($notifiable)
-    {
-        return [
-            //
-        ];
+                    ->line(__('Thank you for using our application!'));
     }
 }
